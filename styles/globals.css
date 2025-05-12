@@ -1,0 +1,228 @@
+/* styles/globals.css */
+
+/* Algemeen */
+body {
+  margin: 0;
+  font-family: 'Playfair Display', serif;
+  background-image: url('/brick-wall-dark.jpg');
+  background-repeat: repeat;
+  background-attachment: scroll;
+  background-position: left top;
+  background-size: auto 450px;
+  color: #fff;
+}
+
+/* Logo bovenaan pagina */
+.logo-container {
+  text-align: center;
+  margin: 20px 0;
+}
+.site-logo {
+  display: inline-block;
+  max-width: 300px;
+  width: 100%;
+  height: auto;
+}
+
+/* Container over volledige breedte */
+.wall-container {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+/* Introtekst (optioneel verbergen) */
+.intro-text {
+  display: none;
+}
+
+/* Total box rechtsboven */
+.total-box {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  margin: 0;
+  z-index: 1000;
+  display: inline-block;
+  background: rgba(0,0,0,0.7);
+  border: 2px solid #d4af37;
+  border-radius: 6px;
+  padding: 1rem 2rem;
+  color: #d4af37;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+.total-box .amount {
+  display: block;
+  font-size: 2rem;
+  margin-top: 0.25rem;
+}
+
+/* Portrait grid – over gehele breedte, kleinere vakjes */
+.wall-grid {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 1rem;
+  justify-items: center;
+  align-items: end;
+  margin-bottom: 60px;
+}
+
+/* Podium styling */
+.podium-1,
+.podium-2-3 {
+  transform: none;
+}
+
+.podium-1 {
+  grid-column: auto;
+  grid-row: auto;
+}
+
+/* Portrait frame – kleinere afmetingen */
+.portrait-wrapper {
+  position: relative;
+  width: 120px;
+  height: 200px; /* foto (160px) + naambadge (40px) */
+  cursor: pointer;
+
+    box-shadow:
+    /* gouden glow */
+    0 0 12px rgba(212, 175, 55, 0.8),
+    /* subtiele zwarte schaduw voor diepte */
+    0 8px 16px rgba(0, 0, 0, 0.5);
+ 
+}
+
+.portrait-frame-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;  /* volle wrapper-hoogte */
+  background: url('/photoframe.png') no-repeat center/cover;
+  background-size: 100% 100%; /* frame volledig laten schalen */
+  z-index: 3;
+  pointer-events: none;
+}
+
+.portrait-photo {
+  display: block;
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  z-index: 1;
+}
+
+.nameboard {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: url('/nameboard.png') no-repeat center/cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  font-family: 'Playfair Display', serif;
+  z-index: 2;
+}
+
+.nameboard .naam {
+  font-size: 1rem;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.nameboard .bedrag {
+  font-size: 0.875rem;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+/* Why donate box – rechts onderin */
+.why-donate {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 300px;
+  box-sizing: border-box;
+  background: #d4af37;
+  color: #111;
+  padding: 1.5rem 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  text-align: center;
+  z-index: 1000;
+}
+.why-donate h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.why-donate p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+.why-donate .donate-btn {
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 50px;
+}
+
+/* DonationForm overlay & form */
+.donation-form-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+.donation-form {
+  background: #1b1b1b;
+  border: 2px solid gold;
+  border-radius: 8px;
+  padding: 2rem;
+  width: 320px;
+  position: relative;
+}
+.donation-form .close-btn {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.donation-form input,
+.donation-form textarea,
+.donation-form button {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+.donation-form input,
+.donation-form textarea {
+  background: #333;
+  color: #fff;
+}
+.donation-form button {
+  background: gold;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+}

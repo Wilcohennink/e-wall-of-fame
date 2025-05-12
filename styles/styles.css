@@ -1,0 +1,140 @@
+/* Achtergrond van de pagina */
+body {
+    margin: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      #5b3a29,
+      #5b3a29 40px,
+      #7b573f 40px,
+      #7b573f 80px
+    );
+    font-family: 'Georgia', serif;
+    color: #fffbe7;
+  }
+  
+  /* Titelstijl */
+  h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin: 1.5rem 0;
+    color: gold;
+    text-shadow: 2px 2px 2px #000;
+  }
+  
+  /* Raster met portretten */
+  .portretten-raster {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0 1rem 2rem;
+  }
+  
+  .portret-wrapper {
+    text-align: center;
+    color: #fffbe7;
+    max-width: 100px;
+  }
+  
+  .portret-wrapper.winnaar {
+    transform: scale(1.4);
+  }
+  
+  .portret-wrapper img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border: 5px solid gold;
+    border-radius: 12px;
+    background-color: #000;
+    cursor: pointer;
+  }
+  
+  .portret-wrapper .naam,
+  .portret-wrapper .bedrag,
+  .portret-wrapper .verhaal {
+    font-size: 0.75rem;
+    margin-top: 0.2rem;
+    color: #eee2c0;
+  }
+  
+  .portret-wrapper .link a {
+    font-size: 0.7rem;
+    color: gold;
+    text-decoration: underline;
+  }
+  
+  /* Donatieformulier */
+  .donation-form {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    background: #222;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 0 10px black;
+    z-index: 10;
+    width: 280px;
+  }
+  
+  .donation-form input[type="text"],
+  .donation-form input[type="number"],
+  .donation-form input[type="file"] {
+    width: 100%;
+    margin-bottom: 0.5rem;
+    padding: 0.4rem;
+    border-radius: 6px;
+    border: none;
+    font-size: 0.9rem;
+  }
+  
+  .donation-form button {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: gold;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 6px;
+    margin-top: 0.5rem;
+  }
+  
+  /* Popup met vergroting */
+  .popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+  }
+  
+  .popup-content {
+    background: #1e1e1e;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    color: #fffbe7;
+    max-width: 90vw;
+    max-height: 90vh;
+  }
+  
+  .popup-content img {
+    max-width: 300px;
+    max-height: 300px;
+    border-radius: 12px;
+    border: 4px solid gold;
+    margin-bottom: 1rem;
+  }
+  
+  .popup-content a {
+    color: gold;
+    text-decoration: underline;
+    display: block;
+    margin-top: 0.5rem;
+  }
+  
