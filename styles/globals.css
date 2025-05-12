@@ -69,6 +69,21 @@ body {
   padding-bottom: 1rem;
 }
 
+@media (max-width: 600px) {
+  .wall-grid {
+    /* 10 gelijke kolommen, elk 1fr (dus 10% containerbreedte) */
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+    /* zorg dat de grid niet inzoomt door overflow en padding te resetten */
+    overflow-x: hidden;
+    padding-bottom: 0;
+  }
+
+  /* optioneel: maak de tegels compacter door hun padding-top iets te verlagen */
+  .portrait-tile {
+    padding-top: 150%; /* in plaats van 166.67%, iets minder hoog */
+  }
+}
+
 /* ——————————————————————————————————————————————
    Portrait-tile & inhoud
 ————————————————————————————————————————————— */
@@ -246,4 +261,32 @@ body {
   color: #1b1b1b;
   font-size: 1.5rem;
   cursor: pointer;
+}
+/* Verberg standaard */
+.donate-cloud {
+  display: none;
+}
+
+/* Toon alleen op mobiel (≤600px) */
+@media (max-width: 600px) {
+  .donate-cloud {
+    display: flex;            /* of inline-block, wat je wil */
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(255,255,255,0.9);
+    color: #333;
+    border: none;
+    border-radius: 50px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 1000;
+  }
+  .donate-cloud:hover {
+    background: rgba(255,255,255,1);
+  }
 }
