@@ -1,9 +1,7 @@
-// pages/api/webhooks.js
-
-import { buffer } from 'micro'
 import Stripe from 'stripe'
 import { createClient } from '@supabase/supabase-js'
 
+// Zet bodyParser uit zodat Next.js je raw body niet voor je omzet
 export const config = {
   api: {
     bodyParser: false,
@@ -17,16 +15,20 @@ const supabaseAdmin = createClient(
 )
 
 export default async function handler(req, res) {
+  // Alleen POST accepteren
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST')
     return res.status(405).end('Method Not Allowed')
   }
 
+  // Lees de raw body als text en zet om naar Buffer
+  const rawBody = await req.text()
+  const buf = Buffer.from(rawBody)
+
   const sig = req.headers['stripe-signature']
   let event
 
   try {
-    const buf = await buffer(req)
     event = stripe.webhooks.constructEvent(
       buf,
       sig,
@@ -37,7 +39,7 @@ export default async function handler(req, res) {
     return res.status(400).send(`Webhook Error: ${err.message}`)
   }
 
-  // Alleen bij succesvolle checkout-sessie
+  // Handel alleen checkout.session.completed af
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object
     const donationId = session.metadata.donationId
@@ -49,10 +51,10 @@ export default async function handler(req, res) {
 
     if (error) {
       console.error('Supabase update error:', error)
-      // Je kunt hier eventueel nog een 500 teruggeven of een retry-triggeren
+      // eventueel: return res.status(500).send('Database update failed')
     }
   }
 
-  // Succesvolle ontvangst terugmelden aan Stripe
+  // Bevestig ontvangst aan Stripe
   res.status(200).json({ received: true })
 }
