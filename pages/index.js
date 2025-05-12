@@ -1,4 +1,5 @@
 // pages/index.js
+
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 import DonationForm from "../components/DonationForm";
@@ -6,8 +7,8 @@ import DonationForm from "../components/DonationForm";
 export default function Home() {
   const [donateurs, setDonateurs] = useState([]);
   const [showForm, setShowForm] = useState(false);
+  const [selectedDonateur, setSelectedDonateur] = useState(null);
 
-  // haal alle donateurs op
   useEffect(() => {
     (async () => {
       const { data, error } = await supabase
@@ -26,14 +27,13 @@ export default function Home() {
 
   return (
     <>
-      {/* Logo bovenaan, gecentreerd */}
+      {/* Logo */}
       <div className="logo-container">
         <img src="/logo.png" alt="Logo" className="site-logo" />
       </div>
 
       <div className="wall-container">
-      
-
+        {/* Totaal */}
         <div className="total-box">
           TOTAL DONATED
           <span className="amount">
@@ -41,42 +41,32 @@ export default function Home() {
           </span>
         </div>
 
+        {/* Muur met 20 portretten */}
         <div className="wall-grid">
-          {donateurs.map((donateur, i) => {
-            const isPodium1 = i === 0;
-            const isPodium2 = i === 1;
-            const isPodium3 = i === 2;
-            const classNames = [
-              "portrait-wrapper",
-              isPodium1 && "podium-1",
-              (isPodium2 || isPodium3) && "podium-2-3",
-            ]
-              .filter(Boolean)
-              .join(" ");
-            return (
-              <div
-                key={donateur.id}
-                className={classNames}
-                onClick={() => setShowForm(true)}
-              >
-                <img
-                  src={donateur.foto_url}
-                  alt={donateur.naam}
-                  className="portrait-photo"
-                />
-                <div className="portrait-frame-overlay" />
-                <div className="nameboard">
-                  <div className="naam">{donateur.naam}</div>
-                  <div className="bedrag">
-                    {formatCurrency(donateur.bedrag)}
-                  </div>
+          {donateurs.map((donateur, i) => (
+            <div
+              key={donateur.id}
+              className="portrait-wrapper"
+              onClick={() => setSelectedDonateur(donateur)}
+            >
+              <img
+                src={donateur.foto_url}
+                alt={donateur.naam}
+                className="portrait-photo"
+              />
+              <div className="portrait-frame-overlay" />
+              <div className="nameboard">
+                <div className="naam">{donateur.naam}</div>
+                <div className="bedrag">
+                  {formatCurrency(donateur.bedrag)}
                 </div>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </div>
 
+      {/* Waarom doneren */}
       <section className="why-donate">
         <h2>WHY DONATE?</h2>
         <p>
@@ -90,6 +80,42 @@ export default function Home() {
         </button>
       </section>
 
+      {/* Portrait-modal met frame + nameboard */}
+      {selectedDonateur && (
+        <div
+          className="portrait-modal-overlay"
+          onClick={() => setSelectedDonateur(null)}
+        >
+          <div
+            className="portrait-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="close-modal"
+              onClick={() => setSelectedDonateur(null)}
+            >
+              ×
+            </button>
+
+            <div className="portrait-wrapper">
+              <img
+                src={selectedDonateur.foto_url}
+                alt={selectedDonateur.naam}
+                className="portrait-photo"
+              />
+              <div className="portrait-frame-overlay" />
+              <div className="nameboard">
+                <div className="naam">{selectedDonateur.naam}</div>
+                <div className="bedrag">
+                  {formatCurrency(selectedDonateur.bedrag)}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Donation Form */}
       <DonationForm isOpen={showForm} onClose={() => setShowForm(false)} />
     </>
   );
