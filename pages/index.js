@@ -37,28 +37,31 @@ export default function Home() {
         <div className="total-box">
           TOTAL DONATED
           <span className="amount">
-            {formatCurrency(donateurs.reduce((sum, d) => sum + d.bedrag, 0))}
+            {formatCurrency(
+              donateurs.reduce((sum, d) => sum + d.bedrag, 0)
+            )}
           </span>
         </div>
 
-        {/* Muur met 20 portretten */}
+        {/* Muur met portretten */}
         <div className="wall-grid">
-          {donateurs.map((donateur, i) => (
+          {donateurs.map((donateur) => (
             <div
               key={donateur.id}
-              className="portrait-wrapper"
+              className="portrait-tile"
               onClick={() => setSelectedDonateur(donateur)}
             >
-              <img
-                src={donateur.foto_url}
-                alt={donateur.naam}
-                className="portrait-photo"
-              />
-              <div className="portrait-frame-overlay" />
-              <div className="nameboard">
-                <div className="naam">{donateur.naam}</div>
-                <div className="bedrag">
-                  {formatCurrency(donateur.bedrag)}
+              <div className="portrait-content">
+                <img
+                  src={donateur.foto_url}
+                  alt={donateur.naam}
+                  className="portrait-photo"
+                />
+                <div className="nameboard">
+                  <div className="naam">{donateur.naam}</div>
+                  <div className="bedrag">
+                    {formatCurrency(donateur.bedrag)}
+                  </div>
                 </div>
               </div>
             </div>
@@ -97,17 +100,19 @@ export default function Home() {
               ×
             </button>
 
-            <div className="portrait-wrapper">
-              <img
-                src={selectedDonateur.foto_url}
-                alt={selectedDonateur.naam}
-                className="portrait-photo"
-              />
-              <div className="portrait-frame-overlay" />
-              <div className="nameboard">
-                <div className="naam">{selectedDonateur.naam}</div>
-                <div className="bedrag">
-                  {formatCurrency(selectedDonateur.bedrag)}
+            {/* Modal gebruikt dezelfde tile structuur */}
+            <div className="portrait-tile portrait-modal-tile">
+              <div className="portrait-content">
+                <img
+                  src={selectedDonateur.foto_url}
+                  alt={selectedDonateur.naam}
+                  className="portrait-photo"
+                />
+                <div className="nameboard">
+                  <div className="naam">{selectedDonateur.naam}</div>
+                  <div className="bedrag">
+                    {formatCurrency(selectedDonateur.bedrag)}
+                  </div>
                 </div>
               </div>
             </div>
